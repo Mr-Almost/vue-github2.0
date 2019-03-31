@@ -40,37 +40,82 @@ export default
       let page = [];
       console.log(nowPage);
       console.log(pageTotal);
-      if (pageTotal <= 11) {
-        for(let i = 1 ;i < pageTotal+1;i++) {
-         page.push(i)
+      if(window.innerWidth>=713) {
+        if (pageTotal <= 11) {
+          for (let i = 1; i < pageTotal + 1; i++) {
+            page.push(i)
+          }
+        } else if (pageTotal > 11 && nowPage >= 7 && nowPage <= pageTotal - 6) {
+          page.push(1);
+          page.push(2);
+          page.push('...');
+          page.push(nowPage - 2);
+          page.push(nowPage - 1);
+          page.push(nowPage);
+          page.push(nowPage + 1);
+          page.push(nowPage + 2);
+          page.push('...');
+          page.push(pageTotal - 1);
+          page.push(pageTotal);
+        } else if (pageTotal > 11 && nowPage < 7) {
+          for (let i = 1; i < 8; i++) {
+            page.push(i)
+          }
+          page.push('...');
+          page.push(pageTotal - 1)
+          page.push(pageTotal)
+        } else if (pageTotal > 11 && nowPage > pageTotal - 6) {
+          page.push(1);
+          page.push(2);
+          page.push('...');
+          for (let i = pageTotal - 6; i < pageTotal + 1; i++) {
+            page.push(i)
+          }
         }
-      } else if (pageTotal > 11 && nowPage >= 7 && nowPage <= pageTotal-6) {
-        page.push(1);
-        page.push(2);
-        page.push('...');
-        page.push(nowPage-2);
-        page.push(nowPage-1);
-        page.push(nowPage);
-        page.push(nowPage+1);
-        page.push(nowPage+2);
-        page.push('...');
-        page.push(pageTotal-1);
-        page.push(pageTotal);
-      } else if (pageTotal > 11 &&  nowPage <7) {
-        for(let i = 1 ;i < 8;i++) {
-          page.push(i)
+      }else{
+        if (pageTotal <= 5) {
+          for (let i = 1; i < pageTotal + 1; i++) {
+            page.push(i)
+          }
         }
-        page.push('...');
-        page.push(pageTotal-1)
-        page.push(pageTotal)
-      }else if (pageTotal > 11 && nowPage > pageTotal-6 ) {
-        page.push(1);
-        page.push(2);
-        page.push('...');
-        for(let i = pageTotal-6 ;i < pageTotal+1;i++) {
-          page.push(i)
+        if (nowPage===1 && pageTotal > 6) {
+          page.push(1);
+          page.push(2);
+          page.push('...');
+          page.push(pageTotal);
         }
+        if (nowPage===2 && pageTotal > 6) {
+          page.push(1);
+          page.push(2);
+          page.push(3);
+          page.push('...');
+          page.push(pageTotal);
+        }
+        if (nowPage===pageTotal && pageTotal > 6) {
+          page.push(1);
+          page.push('...');
+          page.push(pageTotal-1);
+          page.push(pageTotal);
+        }
+        if (nowPage===pageTotal-1 && pageTotal > 6) {
+          page.push(1);
+          page.push('...');
+          page.push(pageTotal-2);
+          page.push(nowPage);
+          page.push(pageTotal);
+        }
+        if (nowPage>2 && pageTotal > 6 && nowPage<pageTotal-1) {
+            page.push(1);
+            page.push('...');
+            page.push(nowPage - 1);
+            page.push(nowPage);
+            page.push(nowPage + 1);
+            page.push('...');
+            page.push(pageTotal);
+        }
+
       }
+
       return page;
     }
   },
@@ -100,29 +145,34 @@ export default
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import '../../common/stylus/index';
-  .page-wrapper
-    display:flex
-    justify-content:center
-    font-weight: 500
-    font-size: 13px
-    font-family: sans-serif
-    color: #0366d6
-    li
-      min-width:30px
-      line-height: 30px
-      text-align:center
-      padding: 6px
-      border:1px solid #e1e4e8
-      &:hover
-        cursor: pointer
-        background-color: #EFF3F6
-      &.highlight
-        background-color: #0366d6
-        color: #fff
-      &.unselect
-        pointer-events:none
-        background-color: #FAFBFC
-        color:#D1D5DC
-    .next,.prev
-      width: 60px
+  #pagination
+    width:100%
+    height:30px
+    .page-wrapper
+      height:100%
+      display:flex
+      justify-content:center
+      font-weight: 500
+      font-size: 13px
+      font-family: sans-serif
+      color: #0366d6
+      li
+        min-width:3.8%
+        line-height: 100%
+        text-align:center
+        padding: 6px
+        border:1px solid #e1e4e8
+        &:hover
+          cursor: pointer
+          background-color: #EFF3F6
+        &.highlight
+          background-color: #0366d6
+          color: #fff
+        &.unselect
+          pointer-events:none
+          background-color: #FAFBFC
+          color:#D1D5DC
+      .next,.prev
+        padding: 6px
+
 </style>

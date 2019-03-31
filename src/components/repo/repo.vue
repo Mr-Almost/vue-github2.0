@@ -5,26 +5,31 @@
         <h3 class="title"><a>{{message.full_name}}</a></h3>
         <p class="description">{{message.description}}</p>
       </div>
-      <div class="result_language">
-        <span class="C" v-if="message.language=='C'">  </span>
-        <span class="Shell" v-if="message.language=='Shell'">  </span>
-        <span class="HTML" v-if="message.language=='HTML'">  </span>
-        <span class="JavaScript" v-if="message.language=='JavaScript'">  </span>
-        <span class="Ruby" v-if="message.language=='Ruby'">  </span>
-        <span class="Python" v-if="message.language=='Python'">  </span>
-        <span class="CPlusPlus" v-if="message.language=='C++'">  </span>
-        <span class="Cjing" v-if="message.language=='C#'">  </span>
-        <span class="CSS" v-if="message.language=='CSS'">  </span>
-        <span class="Go" v-if="message.language=='Go'">  </span>
-        <span class="Scala" v-if="message.language=='Scala'">  </span>
-        <span class="Objective-C" v-if="message.language=='Objective-C'">  </span>
-        <span class="PHP" v-if="message.language=='PHP'">  </span>
-        <span class="language">{{message.language}}</span>
-      </div>
-      <div class="result_star">
-        <div class="star"> <img src="../../common/fonts/star.jpg" wdith="30px" height="30px" > </div>
-        <p class="starNum">{{star_num}}</p>
-      </div>
+
+        <div class="result_language">
+          <span class="C" v-if="message.language=='C'">  </span>
+          <span class="Shell" v-if="message.language=='Shell'">  </span>
+          <span class="HTML" v-if="message.language=='HTML'">  </span>
+          <span class="JavaScript" v-if="message.language=='JavaScript'">  </span>
+          <span class="Ruby" v-if="message.language=='Ruby'">  </span>
+          <span class="Python" v-if="message.language=='Python'">  </span>
+          <span class="CPlusPlus" v-if="message.language=='C++'">  </span>
+          <span class="Cjing" v-if="message.language=='C#'">  </span>
+          <span class="CSS" v-if="message.language=='CSS'">  </span>
+          <span class="Go" v-if="message.language=='Go'">  </span>
+          <span class="Scala" v-if="message.language=='Scala'">  </span>
+          <span class="Objective-C" v-if="message.language=='Objective-C'">  </span>
+          <span class="PHP" v-if="message.language=='PHP'">  </span>
+          <span class="language">{{message.language}}</span>
+        </div>
+        <div class="result_star">
+          <div class="star">
+            <div class="img_wrapper"><img src="../../common/fonts/star.jpg" width="30px" height="30px" ></div>
+            <span class="starNum">{{star_num}}</span>
+          </div>
+
+        </div>
+
     </div>
   </div>
 </template>
@@ -50,7 +55,7 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
   @import '../../common/stylus/index';
   .result_list
-    width:715px
+    width:100%
     height:215px
     border-top:1px solid #eee
     .result_content
@@ -60,21 +65,21 @@ export default {
       color: #586069
       .title
         color: #0366d6
-        padding-top: 20px
+        padding-top: 4%
       .description
         word-wrap:break-word
     .result_language
       float:left
       width:30%
-      height:215px
+      height:100%
       .C,.Shell,.Ruby,.Scala,.HTML,.Go,.CSS,.JavaScript,.Python,.CPlusPlus,.Cjing,.Objective-C,.PHP
         display:inline-block
         width: 14px
         height: 14px
         background: #586069
         border-radius:50%
-        margin-top:30px
-        margin-left:60px
+        margin-top:11%
+        margin-left:21%
       .Shell
         background: #89e051
       .Ruby
@@ -101,13 +106,38 @@ export default {
         background: purple
 
     .result_star
-      height:215px
+      width:20%
+      height:100%
       float:left
       .star
-        float:left
-        margin-top:22px
-        margin-left:50px
-      .starNum
-        float:left
-        margin-top:27px
+        margin-top: 8%
+        .img_wrapper
+          display:inline-block
+          vertical-align:middle
+          img
+            margin-top:2px
+        .starNum
+          line-height:100%
+          display:inline-block
+          vertical-align:middle
+
+  @media screen and (max-width:713px)
+    .repo > .result_list
+      display:flex
+      flex-wrap: wrap
+      justify-content:center
+      align-items:center
+    .repo > .result_list > .result_content
+      width:100%
+      float:none
+    .repo > .result_list >  .result_language
+      flex:1
+      height:20%
+      vertical-align: middle
+      float:none
+    .repo > .result_list >  .result_star
+      flex:1
+      height:20%
+    .repo > .result_list >  .result_star >.star
+      margin-top: 4%
 </style>

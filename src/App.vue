@@ -3,26 +3,29 @@
     <div class="search-wrapper">
       <search></search>
     </div>
-    <div class="main">
-      <div class="menu-wrapper" v-show="onlyScreen">
-        <menu></menu>
-      </div>
-      <loading v-show="!infoItems" class="loading"></loading>
-      <div class="content-wrapper">
-        <div class="result-wrapper" v-if="infoCount" >
-          <div class="result_number">Showing {{formatCount}} available repository results</div>
+    <div class="main-wrapper">
+      <div class="main">
+        <div class="menu-wrapper">
+          <menu></menu>
         </div>
-        <div class="repo-wrapper">
-        <div v-for="item in infoItems">
-          <repo :message="item"></repo>
-        </div>
-        </div>
-        <div class="pagination-wrapper">
-          <pagination :total-count="infoCount" :limit="6" :nowpage="nowpage"></pagination>
+        <div class="content-wrapper">
+          <loading v-show="!infoItems" class="loading"></loading>
+          <div class="content">
+            <div class="result-wrapper" v-if="infoCount" >
+              <div class="result_number">Showing {{formatCount}} available repository results</div>
+            </div>
+            <div class="repo-wrapper">
+              <div v-for="item in infoItems">
+                <repo :message="item"></repo>
+              </div>
+            </div>
+            <div class="pagination-wrapper">
+              <pagination :total-count="infoCount" :limit="6" :nowpage="nowpage"></pagination>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -61,13 +64,6 @@ export default {
       } else {
         return 0;
       }
-    },
-    onlyScreen() {
-      if (parseInt(window.screen.width) < 768) {
-        return false;
-      } else {
-        return true;
-      }
     }
   },
   events: {
@@ -105,56 +101,47 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @media only screen and (min-width:769px)
-    .search-wrapper
-      width:100%
-    .main
+    *
+      margin:0
+      padding:0
+    .main-wrapper
       display:flex
       justify-content:center
-      position:relative
-      width:100%
-      .menu-wrapper
-        width:260px
-        padding-left: 20px
-        margin-right:20px
-      .loading
-        width:100%
-        display:flex
-        align-items: content
-        justify-content:center
-      .content-wrapper
-        width:720px
-        .result-wrapper
-          width:720px
-        .result_number
-          height:50px
-          color: #24292e
-          font-size: 20px
-          font-weight: 600
-
-
-
-  @media only screen and (max-width:768px)
-    .search-wrapper
-      width:100%
-    .main
-      width:100%
-      position:relative
-      .loading
-        width:100%
-        height:100vh
+      .main
+        width:80%
         display:flex
         justify-content:center
-        align-items:center
-      .content-wrapper
-        width:100%
-        padding:0 10px
-        .result-wrapper
-          width:100%
-        .result_number
-          margin-top:10px
-          height:30px
-          color: #24292e
-          font-size: 20px
-          font-weight: 600
+        min-height:100px
+        .menu-wrapper
+          flex:1;
+          padding-left: 20px
+          margin-right:20px
+        .content-wrapper
+          flex:4
+          position:relative
+          max-width:100%
+          .loading
+            position:absolute
+            top:0
+            left:0
+            bottom:0
+            right:0
+            margin:auto
+          .content
+            .result-wrapper
+              width:100%
+            .result_number
+              height:50px
+              color: #24292e
+              font-size: 20px
+              font-weight: 600
+            .pagination-wrapper
+              width:100%
+              max-height:30px
+    @media screen and (max-width:713px)
+      #app > .main-wrapper > .main > .menu-wrapper
+        display:none
+
+
+
 </style>

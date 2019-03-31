@@ -12,10 +12,11 @@
   .loading-wrapper
     width: 100px
     height: 100px
+    line-height: 100%
+    text-align:center
     font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol
     .content
       display: inline-block
-      line-height: 10px
       margin-right:10px
       width:10px
       height: 10px

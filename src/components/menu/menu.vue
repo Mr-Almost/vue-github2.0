@@ -37,12 +37,11 @@ export default {};
 <style lang="stylus" rel="stylesheet/stylus">
   @import '../../common/stylus/index';
   .menu
-    width:260px
-    margin-right:20px
+    width:100%
     .menu_options
       margin-bottom:10px
       li
-        width:231px
+        width:90%
         height:38px
         border:1px solid #d1d5da
         padding:0 10px
@@ -61,7 +60,7 @@ export default {};
     .menu_language
       padding: 0 10px
       border:1px solid #d1d5da
-      width:231px
+      width:90%
       .title
         font-size:14px
         font-weight: 600

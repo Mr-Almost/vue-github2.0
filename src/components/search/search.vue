@@ -1,12 +1,14 @@
 <template>
-  <div class="search">
+  <div class="search" :class="{active:scrolling}">
       <div class="logo"><img src="../../common/fonts/github.jpg" alt="" width="34px" height="34px" ></div>
       <nav>
-        <div class="search_box">
+        <div class="search_box" >
           <span class="search_icon" ></span>
           <input type="search" class="search_input" id="searchInput" placeholder="Search or jump to..."
                  v-model="search_word"
                  @keyup.enter="searchMethod"
+                 @focus="focusEvent"
+                 @blur="blurEvent"
           >
         </div>
         <ul class="search_options" v-show="onlyScreen">
@@ -25,21 +27,33 @@
 export default {
   data() {
    return {
-     search_word: 'git'
+     search_word: 'git',
+     scrolling: false
    };
   },
-  computed: {
-    onlyScreen() {
-      if (parseInt(window.screen.width) < 768) {
-        return false;
-      } else {
-        return true;
-      }
-    }
+  ready() {
+    window.addEventListener('scroll', () => {
+      this.handleScroll();
+    }, true);
   },
   methods: {
+    handleScroll (e) {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop > 0) {
+        this.scrolling = true;
+      } else {
+        this.scrolling = false;
+      }
+    },
     searchMethod() {
       this.$dispatch('search', this.search_word);
+    },
+    focusEvent(e) {
+      e.target.parentNode.classList.add('active');
+      console.log(111);
+    },
+    blurEvent(e) {
+      e.target.parentNode.classList.remove('active');
     }
   }
 };
@@ -47,12 +61,15 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import '../../common/stylus/index';
-  @media only screen and (min-width:769px)
     .search
-      width:100%
       padding:16px 0
       background-color: #24292E
       margin-bottom:24px
+      &.active
+        position:fixed
+        top:0
+        z-index:100
+        width:100%
       .logo
         vertical-align:middle
         width:60px
@@ -67,10 +84,14 @@ export default {
       nav
         display:inline-block
         margin-left:-8px
+        width:40%
+        max-width:40%
         .search_box
+          box-sizing:border-box
           display:inline-block
+          width:40%
           height:30px
-          width:300px
+          min-width:250px
           line-height:30px
           background: #3F4448
           padding-left:10px
@@ -78,13 +99,20 @@ export default {
           text-align:left
           vertical-align:middle
           border-radius:3px
+          transition: width 0.1s ease-in-out, background-color 0.1s, color 0.1s
+          &.active
+            width:60%
+            background: #fafbfc
           .search_input
-            width:280px
+            width:90%
             background:transparent
             border:0
             font-size:14px
             outline:none
             color:#fff
+            &:focus
+              color:#000
+              outline:none
         .search_options
           display:inline-block
           padding-left:8px
@@ -105,38 +133,10 @@ export default {
               line-height: 1.5
               &:hover
                 color:#968D8D
+    @media screen and (max-width:713px)
+      .search > nav> .search_options
+        display:none
 
-  @media only screen and (max-width:768px)
-    .search
-      background-color: #24292E
-      width: auto
-      display:flex
-      .logo
-        flex: 0 0 34px
-        margin-top:2px
-        margin-left: 2px
-        img
-          border-radius:50%
-      nav
-        width:100%
-        .search_box
-          display:flex
-          flex: 1
-          margin-right: 2px
-          width:50%
-          height: 100%
-          line-height:80%
-          text-align:left
-          vertical-align:middle
-          border-radius:3px
-          background: #3F4448
-          padding-left:10px
-          margin-left:10px
-          .search_input
-            width:100%
-            background:transparent
-            border:0
-            font-size:14px
-            outline:none
-            color:#fff
+
+
 </style>
